@@ -1,0 +1,50 @@
+.hero {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--nav-height) var(--space-lg) var(--space-xl);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 50% at 20% 60%, rgba(232, 255, 0, 0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 80% 30%, rgba(100, 200, 255, 0.04) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.inner {
+  text-align: center;
+  max-width: 900px;
+}
+
+.headline {
+  font-size: clamp(4rem, 12vw, 10rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.92;
+  margin-bottom: var(--space-xl);
+}
+
+.headline em {
+  font-style: italic;
+  color: var(--color-accent);
+}
+
+.sub {
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+.scrollHint {
+  position: absolute;
+  bottom: var(--space-xl);
+  color: var(--color-text-muted);
+}

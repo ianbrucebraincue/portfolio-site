@@ -1,0 +1,67 @@
+.outro {
+  padding: var(--space-2xl) var(--space-lg);
+  min-height: 70dvh;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid var(--color-border);
+  background: var(--color-bg-secondary);
+}
+
+.inner {
+  max-width: 760px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.eyebrow {
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.heading {
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+}
+
+.sub {
+  font-size: 1.1rem;
+  color: var(--color-text-muted);
+  max-width: 40ch;
+  line-height: 1.6;
+}
+
+.cta {
+  font-size: clamp(1.1rem, 3vw, 1.6rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--color-accent);
+  display: inline-block;
+  transition: letter-spacing var(--duration-base) var(--ease-out);
+}
+
+.cta:hover {
+  letter-spacing: 0.02em;
+}
+
+.nav {
+  display: flex;
+  gap: var(--space-lg);
+  margin-top: var(--space-md);
+}
+
+.altLink {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  transition: color var(--duration-fast);
+}
+
+.altLink:hover {
+  color: var(--color-text);
+}
