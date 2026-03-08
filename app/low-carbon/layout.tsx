@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "./lite.css";
+import "./low-carbon.css";
 
 export const metadata: Metadata = {
   title: "Lite",
@@ -7,5 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function LiteLayout({ children }: { children: React.ReactNode }) {
-  return <div className="lite-page">{children}</div>;
+  return <div className="low-carbon-page">{children}</div>;
 }

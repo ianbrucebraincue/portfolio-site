@@ -2,7 +2,7 @@ import Link from "next/link";
 import styles from "./Nav.module.css";
 
 interface NavProps {
-  active?: "3d" | "story" | "lite";
+  active?: "3d" | "web" | "low-carbon";
 }
 
 export default function Nav({ active }: NavProps) {
@@ -10,17 +10,17 @@ export default function Nav({ active }: NavProps) {
     <header className={styles.header}>
       <nav className={styles.nav} aria-label="Main navigation">
         <Link href="/" className={styles.logo} aria-label="Home">
-          YN
+          Ian Bruce
         </Link>
 
         <ul className={styles.links}>
           <li>
             <Link
-              href="/story"
+              href="/web"
               className={styles.link}
-              aria-current={active === "story" ? "page" : undefined}
+              aria-current={active === "web" ? "page" : undefined}
             >
-              Story
+              Modern 
             </Link>
           </li>
           <li>
@@ -34,12 +34,12 @@ export default function Nav({ active }: NavProps) {
           </li>
           <li>
             <Link
-              href="/lite"
-              className={`${styles.link} ${styles.liteLink}`}
-              aria-current={active === "lite" ? "page" : undefined}
+              href="/low-carbon"
+              className={`${styles.link} ${styles.lowCarbonLink}`}
+              aria-current={active === "low-carbon" ? "page" : undefined}
               title="Low-carbon text-only version"
             >
-              Lite
+              Low Carbon
             </Link>
           </li>
         </ul>

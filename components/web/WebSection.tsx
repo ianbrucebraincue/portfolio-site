@@ -6,16 +6,16 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { Project } from "@/types";
 import VideoPlayer from "@/components/ui/VideoPlayer";
-import styles from "./StorySection.module.css";
+import styles from "./WebSection.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
-interface StorySectionProps {
+interface WebSectionProps {
   project: Project;
   index: number;
 }
 
-export default function StorySection({ project, index }: StorySectionProps) {
+export default function WebSection({ project, index }: WebSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const labelRef = useRef<HTMLSpanElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);

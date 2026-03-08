@@ -3,11 +3,11 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import styles from "./StoryOutro.module.css";
+import styles from "./WebOutro.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function StoryOutro() {
+export default function WebOutro() {
   const containerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -55,7 +55,7 @@ export default function StoryOutro() {
           <a href="/3d" className={styles.altLink}>
             Explore in 3D →
           </a>
-          <a href="/lite" className={styles.altLink}>
+          <a href="/low-carbon" className={styles.altLink}>
             Lite version →
           </a>
         </nav>

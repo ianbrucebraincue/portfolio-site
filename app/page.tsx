@@ -9,9 +9,9 @@ export default function HomePage() {
         <p className={styles.tagline}>Software engineer & creative technologist</p>
 
         <nav className={styles.nav} aria-label="Site experiences">
-          <Link href="/story" className={styles.navLink} data-variant="primary">
-            <span className={styles.navLabel}>Scrollytelling</span>
-            <span className={styles.navDesc}>Editorial storytelling experience</span>
+          <Link href="/web" className={styles.navLink} data-variant="primary">
+            <span className={styles.navLabel}>Modern Web</span>
+            <span className={styles.navDesc}>Classic website experience</span>
           </Link>
 
           <Link href="/3d" className={styles.navLink}>
@@ -19,9 +19,9 @@ export default function HomePage() {
             <span className={styles.navDesc}>Explore projects in three dimensions</span>
           </Link>
 
-          <Link href="/lite" className={styles.navLink}>
-            <span className={styles.navLabel}>Lite</span>
-            <span className={styles.navDesc}>Low-carbon, text-only version</span>
+          <Link href="/low-carbon" className={styles.navLink}>
+            <span className={styles.navLabel}>Low-carbon</span>
+            <span className={styles.navDesc}>Text-only version</span>
           </Link>
         </nav>
       </div>

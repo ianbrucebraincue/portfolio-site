@@ -2,9 +2,9 @@
 
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
-import styles from "./StoryHero.module.css";
+import styles from "./WebHero.module.css";
 
-export default function StoryHero() {
+export default function WebHero() {
   const containerRef = useRef<HTMLElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const subRef = useRef<HTMLParagraphElement>(null);
@@ -49,12 +49,12 @@ export default function StoryHero() {
     <section ref={containerRef} className={styles.hero}>
       <div className={styles.inner}>
         <h1 ref={headlineRef} className={styles.headline}>
-          Work &amp;
+          Ian Bruce
           <br />
-          <em>Curiosity</em>
+          <em>Portfolio</em>
         </h1>
         <p ref={subRef} className={styles.sub}>
-          Software engineering at the edge of design, art, and code.
+          Building frontend experiences at the intersection of design and code.
           <br />
           Scroll to explore the projects.
         </p>

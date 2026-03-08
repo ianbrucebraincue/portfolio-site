@@ -1,0 +1,73 @@
+/* ================================================
+   Lite Experience — Low-Carbon CSS
+   All rules scoped to .low-carbon-page to avoid bleeding
+   into other routes' global styles.
+   Target: < 2 KB CSS. System fonts only.
+   ================================================ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+.low-carbon-page {
+  font-family: Georgia, "Times New Roman", serif;
+  background: #fff;
+  color: #111;
+  min-height: 100dvh;
+}
+
+.low-carbon-page main {
+  max-width: 660px;
+  margin: 0 auto;
+  padding: 2rem 1rem 4rem;
+  line-height: 1.7;
+}
+
+.low-carbon-page a { color: #111; text-decoration: underline; text-underline-offset: 3px; }
+.low-carbon-page a:hover { text-decoration: none; }
+
+.low-carbon-page h1 { font-size: 1.5rem; margin-bottom: 0.25rem; }
+.low-carbon-page h2 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+.low-carbon-page p { margin-bottom: 1rem; }
+.low-carbon-page ul { list-style: none; }
+
+.low-carbon-header { border-bottom: 1px solid #ddd; padding-bottom: 1rem; margin-bottom: 2rem; }
+.low-carbon-header p { color: #555; font-size: 0.9rem; margin-bottom: 0; }
+.low-carbon-nav { display: flex; gap: 1rem; margin-top: 0.5rem; font-size: 0.85rem; }
+
+.low-carbon-intro { margin-bottom: 3rem; }
+
+.project-list { display: flex; flex-direction: column; gap: 0; }
+
+.project-item { border-top: 1px solid #ddd; padding: 1.5rem 0; }
+.project-item:last-child { border-bottom: 1px solid #ddd; }
+
+.project-meta { display: flex; gap: 1rem; font-size: 0.8rem; color: #555; margin-bottom: 0.5rem; font-family: monospace; }
+
+.project-title { font-size: 1.15rem; margin-bottom: 0.5rem; }
+
+.project-desc { font-size: 0.95rem; color: #333; margin-bottom: 0.75rem; }
+
+.project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.75rem; }
+.low-carbon-tag { font-size: 0.75rem; font-family: monospace; background: #f0f0f0; padding: 0.15rem 0.4rem; }
+
+.project-link { font-size: 0.85rem; font-family: monospace; }
+
+.low-carbon-footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #ddd; font-size: 0.8rem; color: #555; }
+.low-carbon-footer a { color: #555; }
+
+@media (prefers-color-scheme: dark) {
+  .low-carbon-page { background: #0f0f0f; color: #e8e8e8; }
+  .low-carbon-page a { color: #e8e8e8; }
+  .low-carbon-header { border-color: #333; }
+  .low-carbon-header p { color: #999; }
+  .project-item { border-color: #333; }
+  .project-item:last-child { border-color: #333; }
+  .project-meta { color: #999; }
+  .project-desc { color: #ccc; }
+  .low-carbon-tag { background: #1e1e1e; }
+  .low-carbon-footer { border-color: #333; color: #999; }
+  .low-carbon-footer a { color: #999; }
+}
+
+@media print {
+  .low-carbon-nav { display: none; }
+}

@@ -1,6 +1,6 @@
 // Fully static server component — zero JavaScript, no images, no videos.
 // Optimized for low bandwidth, assistive technology, and accessibility.
-// Plain <a> tags are intentional: Next.js <Link> adds client-side JS which defeats the lite experience.
+// Plain <a> tags are intentional: Next.js <Link> adds client-side JS which defeats the low-carbon experience.
 /* eslint-disable @next/next/no-html-link-for-pages */
 import type { Metadata } from "next";
 import { projects } from "@/data/projects";
@@ -13,18 +13,18 @@ export const metadata: Metadata = {
 export default function LitePage() {
   return (
     <main>
-      <header className="lite-header">
+      <header className="low-carbon-header">
         <h1>Your Name</h1>
         <p>Software engineer &amp; creative technologist</p>
-        <nav className="lite-nav" aria-label="Site experiences">
+        <nav className="low-carbon-nav" aria-label="Site experiences">
           <a href="/">Home</a>
-          <a href="/story">Story version</a>
+          <a href="/web">Web version</a>
           <a href="/3d">3D version</a>
           <span aria-current="page">Lite (current)</span>
         </nav>
       </header>
 
-      <section className="lite-intro">
+      <section className="low-carbon-intro">
         <p>
           I build software that sits at the intersection of engineering and craft — interactive
           experiences, developer tools, and data visualizations. This is the low-bandwidth version
@@ -65,7 +65,7 @@ export default function LitePage() {
               {project.tags.length > 0 && (
                 <ul className="project-tags" aria-label="Technologies">
                   {project.tags.map((tag) => (
-                    <li key={tag} className="lite-tag">
+                    <li key={tag} className="low-carbon-tag">
                       {tag}
                     </li>
                   ))}
@@ -86,10 +86,10 @@ export default function LitePage() {
         </ul>
       </section>
 
-      <footer className="lite-footer">
+      <footer className="low-carbon-footer">
         <p>
           &copy; {new Date().getFullYear()} Your Name ·{" "}
-          <a href="/story">Full site</a> ·{" "}
+          <a href="/web">Full site</a> ·{" "}
           <a href="/3d">3D experience</a>
         </p>
         <p>
