@@ -107,9 +107,9 @@
   background-color: var(--color-surface);
 }
 
-.imgWrapper[data-primary] {
+/* .imgWrapper[data-primary] {
   aspect-ratio: 4 / 3;
-}
+} */
 
 .img {
   width: 100%;
@@ -129,9 +129,9 @@
   gap: var(--space-sm);
 }
 
-.secondaryGrid .imgWrapper {
+/* .secondaryGrid .imgWrapper {
   aspect-ratio: 1;
-}
+} */
 
 /* ---- Responsive ---- */
 @media (max-width: 900px) {

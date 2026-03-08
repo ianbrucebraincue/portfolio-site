@@ -3,19 +3,19 @@ import "@/styles/globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "Portfolio",
-    template: "%s | Portfolio",
+    default: "Ian Bruce | Portfolio",
+    template: "%s | Ian Bruce",
   },
   description: "Software and creative projects by a developer and creative technologist.",
   openGraph: {
     type: "website",
-    locale: "en_US",
+    locale: "en_GB",
   },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en-GB">
       <body>{children}</body>
     </html>
   );

@@ -62,18 +62,6 @@ export default function StorySection({ project, index }: StorySectionProps) {
             delay: i * 0.1,
           }
         );
-
-        // Subtle parallax while scrolling
-        gsap.to(img.querySelector("img"), {
-          yPercent: isEven ? -8 : 8,
-          ease: "none",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
-          },
-        });
       });
     }, sectionRef);
 
@@ -145,6 +133,7 @@ export default function StorySection({ project, index }: StorySectionProps) {
                 className={styles.img}
                 sizes="(max-width: 768px) 100vw, 55vw"
                 priority={project.featured}
+                unoptimized
               />
             </div>
           )}
@@ -160,6 +149,7 @@ export default function StorySection({ project, index }: StorySectionProps) {
                     height={img.height}
                     className={styles.img}
                     sizes="(max-width: 768px) 100vw, 30vw"
+                    unoptimized
                   />
                 </div>
               ))}

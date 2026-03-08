@@ -8,7 +8,13 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "images.unsplash.com",
+        hostname: "**",
+      },
+    ],
+    localPatterns: [
+      {
+        pathname: '/.netlify/images',
+        search: '',
       },
     ],
   },
