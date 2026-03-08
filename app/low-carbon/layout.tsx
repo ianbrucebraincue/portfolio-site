@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./low-carbon.css";
 
 export const metadata: Metadata = {
-  title: "Lite",
-  description: "Low-carbon, text-only portfolio. No images, no videos, minimal bandwidth.",
+  title: "Low Carbon",
+  description: "Text-only portfolio. No images, no videos, minimal bandwidth.",
 };
 
 export default function LiteLayout({ children }: { children: React.ReactNode }) {

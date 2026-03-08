@@ -5,8 +5,8 @@ export default function HomePage() {
   return (
     <main className={styles.main}>
       <div className={styles.content}>
-        <h1 className={styles.name}>Your Name</h1>
-        <p className={styles.tagline}>Software engineer & creative technologist</p>
+        <h1 className={styles.name}>Ian Bruce</h1>
+        <p className={styles.tagline}>Frontend engineer &amp; creative technologist</p>
 
         <nav className={styles.nav} aria-label="Site experiences">
           <Link href="/web" className={styles.navLink} data-variant="primary">
@@ -20,17 +20,17 @@ export default function HomePage() {
           </Link>
 
           <Link href="/low-carbon" className={styles.navLink}>
-            <span className={styles.navLabel}>Low-carbon</span>
+            <span className={styles.navLabel}>Low Carbon</span>
             <span className={styles.navDesc}>Text-only version</span>
           </Link>
         </nav>
       </div>
 
       <footer className={styles.footer}>
-        <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+        <a href="https://github.com/ianbrucebraincue" target="_blank" rel="noopener noreferrer">
           GitHub
         </a>
-        <a href="mailto:hello@example.com">Email</a>
+        <a href="mailto:brucegordonian@gmail.com">Email</a>
       </footer>
     </main>
   );

@@ -6,21 +6,21 @@ import type { Metadata } from "next";
 import { projects } from "@/data/projects";
 
 export const metadata: Metadata = {
-  title: "Lite",
-  description: "Low-carbon, text-only portfolio. Projects without images or video.",
+  title: "Low Carbon",
+  description: "Text-only portfolio. Projects without images or video.",
 };
 
 export default function LitePage() {
   return (
     <main>
       <header className="low-carbon-header">
-        <h1>Your Name</h1>
-        <p>Software engineer &amp; creative technologist</p>
+        <h1>Ian Bruce</h1>
+        <p>Frontend engineer &amp; creative technologist</p>
         <nav className="low-carbon-nav" aria-label="Site experiences">
           <a href="/">Home</a>
           <a href="/web">Web version</a>
           <a href="/3d">3D version</a>
-          <span aria-current="page">Lite (current)</span>
+          <span aria-current="page">Low Carbon (current)</span>
         </nav>
       </header>
 
@@ -32,8 +32,8 @@ export default function LitePage() {
         </p>
         <p>
           Contact:{" "}
-          <a href="mailto:hello@example.com">hello@example.com</a> ·{" "}
-          <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+          <a href="mailto:brucegordonian@gmail.com">brucegordonian@gmail.com</a> ·{" "}
+          <a href="https://github.com/ianbrucebraincue" target="_blank" rel="noopener noreferrer">
             GitHub
           </a>
         </p>

@@ -47,8 +47,8 @@ export default function WebOutro() {
         <p data-animate className={styles.sub}>
           Open to freelance projects, collaborations, and interesting conversations.
         </p>
-        <a data-animate href="mailto:hello@example.com" className={styles.cta}>
-          hello@example.com
+        <a data-animate href="mailto:brucegordonian@gmail.com" className={styles.cta}>
+          brucegordonian@gmail.com
         </a>
 
         <nav data-animate className={styles.nav} aria-label="Other experiences">
