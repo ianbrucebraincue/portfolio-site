@@ -1,7 +1,8 @@
 .page {
   position: fixed;
   inset: 0;
-  background: #050508;
+  /* Luminous sky gradient — canvas renders transparently over this */
+  background: linear-gradient(170deg, #f0f4ff 0%, #e2ecff 45%, #d4e6ff 100%);
   overflow: hidden;
 }
 
@@ -12,14 +13,14 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  background: #050508;
+  background: #f0f4ff;
 }
 
 .loaderDot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--color-accent);
+  background: #7090c0;
   animation: pulse 1s ease-in-out infinite;
 }
 
@@ -27,8 +28,8 @@
 .loaderDot:nth-child(3) { animation-delay: 0.4s; }
 
 @keyframes pulse {
-  0%, 100% { transform: scale(1); opacity: 0.4; }
-  50% { transform: scale(1.5); opacity: 1; }
+  0%, 100% { transform: scale(1); opacity: 0.35; }
+  50%       { transform: scale(1.5); opacity: 1; }
 }
 
 .hint {
@@ -37,7 +38,7 @@
   left: 50%;
   transform: translateX(-50%);
   font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(30, 50, 100, 0.45);
   letter-spacing: 0.03em;
   pointer-events: none;
   white-space: nowrap;
@@ -46,8 +47,9 @@
 .hint kbd {
   font-family: var(--font-mono);
   font-size: 0.7rem;
+  color: rgba(30, 50, 100, 0.55);
   padding: 0.1rem 0.35rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(30, 50, 100, 0.18);
   border-radius: 3px;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.45);
 }

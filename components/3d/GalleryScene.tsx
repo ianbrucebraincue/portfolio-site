@@ -7,9 +7,14 @@ import GalleryPanel from "./GalleryPanel";
 import { useScrollCamera } from "@/hooks/useScrollCamera";
 import { useInfiniteCorridor } from "@/hooks/useInfiniteCorridor";
 
-// ─── Layout constants ─────────────────────────────────────────────────────────
 const SPACING = 5.5;
 const CAMERA_Z = 2;
+
+// Fog color matches the gradient horizon in page.module.css — panels dissolve
+// seamlessly into the sky as they recede rather than hitting a hard cutoff.
+const FOG_COLOR = "#d4e6ff";
+const FOG_NEAR = 9;
+const FOG_FAR = 40;
 
 function CameraController() {
   useScrollCamera(CAMERA_Z);
@@ -21,8 +26,6 @@ interface GallerySceneProps {
   onSelect: (project: Project) => void;
 }
 
-// memo — prevents the Canvas from re-rendering when selectedProject
-// state changes in the parent page (projects and onSelect are both stable).
 const GalleryScene = memo(function GalleryScene({
   projects,
   onSelect,
@@ -32,16 +35,35 @@ const GalleryScene = memo(function GalleryScene({
   return (
     <Canvas
       camera={{ position: [0, 0, CAMERA_Z], fov: 65, near: 0.1, far: 100 }}
-      gl={{ antialias: true, alpha: false }}
+      // alpha: true — canvas is transparent, CSS gradient shows through
+      gl={{ antialias: true, alpha: true }}
       dpr={[1, 1.5]}
       style={{ width: "100%", height: "100%" }}
     >
-      <fog attach="fog" args={["#050508", 10, 52]} />
+      {/* Atmospheric depth — panels fade into the sky gradient behind them */}
+      <fog attach="fog" args={[FOG_COLOR, FOG_NEAR, FOG_FAR]} />
 
-      <ambientLight intensity={0.55} />
-      <pointLight position={[0, 6, -4]} intensity={3.5} color="#ffffff" />
-      <pointLight position={[-6, 1, 0]} intensity={0.7} color="#3344cc" />
-      <pointLight position={[0, -4, -8]} intensity={0.4} color="#e8ff00" />
+      {/* ── Lighting ── soft, omnidirectional, no harsh shadows ─────────────── */}
+
+      {/* Broad ambient fill — the "sky light" baseline */}
+      <ambientLight intensity={2.2} color="#f8f4ff" />
+
+      {/* Soft overhead directional — gentle top-down illumination */}
+      <directionalLight
+        position={[2, 8, 4]}
+        intensity={1.4}
+        color="#ffffff"
+      />
+
+      {/* Lavender rim from behind-left — adds glass-edge depth */}
+      <directionalLight
+        position={[-6, 2, -10]}
+        intensity={0.7}
+        color="#c4b8ff"
+      />
+
+      {/* Warm under-bounce — lifts shadow areas, keeps it airy */}
+      <pointLight position={[0, -6, -5]} intensity={0.5} color="#ffeedd" />
 
       <CameraController />
 

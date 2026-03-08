@@ -11,15 +11,16 @@ import { RECYCLE_BUFFER } from "@/hooks/useInfiniteCorridor";
 const PANEL_W = 3.4;
 const PANEL_H = 2.1;
 
-// ─── Animation constants ─────────────────────────────────────────────────────
-const FLOAT_SPEED = 0.65;
-const FLOAT_AMP = 0.07;
+// ─── Floating motion — slower and wider for a dreamlike drift ────────────────
+const FLOAT_SPEED = 0.38;  // oscillations per second (was 0.65)
+const FLOAT_AMP   = 0.13;  // vertical travel in units  (was 0.07)
 
-// ─── Cached colors (created once, reused every frame) ────────────────────────
-const COLOR_ACCENT = new THREE.Color("#e8ff00");
-const COLOR_BORDER = new THREE.Color("#222222");
+// ─── Colours — light-palette glass aesthetic ─────────────────────────────────
+// Edge frame: soft sky-blue default → bright white on hover
+const COLOR_BORDER_DEFAULT = new THREE.Color("#b0c8e8");
+const COLOR_BORDER_HOVER   = new THREE.Color("#ffffff");
 
-// ─── Types ────────────────────────────────────────────────────────────────────
+// ─── Types ───────────────────────────────────────────────────────────────────
 interface GalleryPanelProps {
   project: Project;
   onSelect: (project: Project) => void;
@@ -37,27 +38,25 @@ export default function GalleryPanel({
   panelCount,
   spacing,
 }: GalleryPanelProps) {
-  const groupRef = useRef<THREE.Group>(null!);
-  const glowRef = useRef<THREE.Mesh>(null!);
+  const groupRef  = useRef<THREE.Group>(null!);
+  const glowRef   = useRef<THREE.Mesh>(null!);
   const borderRef = useRef<THREE.LineSegments>(null!);
 
   const [hovered, setHovered] = useState(false);
-
   const { camera, pointer } = useThree();
 
-  // Mutable position — recycled in useFrame without triggering re-renders
+  // Mutable world position — mutated for recycling without triggering re-renders
   const posRef = useRef(new THREE.Vector3(...basePosition));
 
-  // Load image texture; callback sets correct color space once on load
   const texture = useTexture(project.images[0]?.src ?? "", (t) => {
     t.colorSpace = THREE.SRGBColorSpace;
   });
 
-  // Border geometry — memoised so it's never recreated
+  // Memoised border geometry — created once
   const borderGeom = useMemo(
     () =>
       new THREE.EdgesGeometry(
-        new THREE.PlaneGeometry(PANEL_W + 0.08, PANEL_H + 0.08)
+        new THREE.PlaneGeometry(PANEL_W + 0.1, PANEL_H + 0.1)
       ),
     []
   );
@@ -66,46 +65,46 @@ export default function GalleryPanel({
     onSelect(project);
   }, [onSelect, project]);
 
-  // ── Per-frame updates ──────────────────────────────────────────────────────
+  // ── Per-frame ─────────────────────────────────────────────────────────────
   useFrame(() => {
     const group = groupRef.current;
-    const pos = posRef.current;
+    const pos   = posRef.current;
     if (!group) return;
 
     const t = performance.now() * 0.001;
 
-    // Floating motion
-    const floatY = Math.sin(t * FLOAT_SPEED + index * 1.3) * FLOAT_AMP;
-    const floatRotZ = Math.sin(t * 0.35 + index * 0.8) * 0.007;
+    // Gentle multi-axis drift — different frequencies per axis for organic feel
+    const floatY    = Math.sin(t * FLOAT_SPEED + index * 1.4)  * FLOAT_AMP;
+    const floatX    = Math.sin(t * 0.22        + index * 2.1)  * 0.04;
+    const floatRotZ = Math.sin(t * 0.28        + index * 0.85) * 0.010;
 
-    // Drive position from posRef (allows recycling without re-renders)
-    group.position.set(pos.x, pos.y + floatY, pos.z);
+    group.position.set(pos.x + floatX, pos.y + floatY, pos.z);
 
-    // Hover tilt toward pointer
-    const targetRotY = hovered ? pointer.x * 0.28 : 0;
-    const targetRotX = hovered ? -pointer.y * 0.18 : 0;
+    // Hover tilt — panel leans toward the pointer like a pane of glass catching light
+    const targetRotY = hovered ? pointer.x * 0.26 : 0;
+    const targetRotX = hovered ? -pointer.y * 0.16 : 0;
 
     group.rotation.y = THREE.MathUtils.lerp(group.rotation.y, targetRotY, 0.08);
     group.rotation.x = THREE.MathUtils.lerp(group.rotation.x, targetRotX, 0.08);
-    group.rotation.z = THREE.MathUtils.lerp(group.rotation.z, floatRotZ, 0.05);
+    group.rotation.z = THREE.MathUtils.lerp(group.rotation.z, floatRotZ,  0.05);
 
-    // Glow opacity
+    // Glow halo — additive blend brightens the area behind, simulating light emission
     if (glowRef.current) {
       const mat = glowRef.current.material as THREE.MeshBasicMaterial;
       mat.opacity = THREE.MathUtils.lerp(
         mat.opacity,
-        hovered ? 0.22 : 0.05,
-        0.08
+        hovered ? 0.38 : 0.10,
+        0.07
       );
     }
 
-    // Border colour
+    // Edge frame fades to pure white on hover — glass catching light
     if (borderRef.current) {
       const mat = borderRef.current.material as THREE.LineBasicMaterial;
-      mat.color.lerp(hovered ? COLOR_ACCENT : COLOR_BORDER, 0.1);
+      mat.color.lerp(hovered ? COLOR_BORDER_HOVER : COLOR_BORDER_DEFAULT, 0.08);
     }
 
-    // ── Infinite recycling ─────────────────────────────────────────────────
+    // ── Infinite recycling ──────────────────────────────────────────────────
     if (pos.z > camera.position.z + RECYCLE_BUFFER) {
       pos.z -= panelCount * spacing;
     }
@@ -113,26 +112,35 @@ export default function GalleryPanel({
 
   return (
     <group ref={groupRef}>
-      {/* Glow halo */}
-      <mesh ref={glowRef} position={[0, 0, -0.04]}>
-        <planeGeometry args={[PANEL_W + 0.5, PANEL_H + 0.5]} />
+      {/*
+       * Glow halo — AdditiveBlending means it adds luminance to everything
+       * behind it rather than alpha-compositing, creating a real light-spill
+       * effect without postprocessing bloom.
+       */}
+      <mesh ref={glowRef} position={[0, 0, -0.06]}>
+        <planeGeometry args={[PANEL_W + 0.9, PANEL_H + 0.9]} />
         <meshBasicMaterial
-          color="#e8ff00"
+          color="#c8dcff"
           transparent
-          opacity={0.05}
+          opacity={0.10}
+          blending={THREE.AdditiveBlending}
           depthWrite={false}
         />
       </mesh>
 
-      {/* Card backing */}
-      <mesh position={[0, 0, -0.01]}>
-        <planeGeometry args={[PANEL_W, PANEL_H]} />
+      {/*
+       * Frosted backing — white at very low opacity, roughness=1 so it
+       * scatters light diffusely rather than reflecting it sharply.
+       * Gives the panel the milky depth of real frosted glass.
+       */}
+      <mesh position={[0, 0, -0.015]}>
+        <planeGeometry args={[PANEL_W + 0.04, PANEL_H + 0.04]} />
         <meshStandardMaterial
-          color="#06060e"
+          color="#ffffff"
           transparent
-          opacity={0.75}
-          roughness={0.2}
-          metalness={0.4}
+          opacity={0.18}
+          roughness={1}
+          metalness={0}
         />
       </mesh>
 
@@ -153,39 +161,44 @@ export default function GalleryPanel({
         <meshStandardMaterial
           map={texture}
           transparent
-          opacity={0.93}
-          roughness={0.08}
-          metalness={0.12}
+          opacity={0.88}
+          roughness={0.05}
+          metalness={0}
         />
       </mesh>
 
-      {/* Glass sheen */}
+      {/*
+       * Glass sheen overlay — a very faint cool highlight that sits on top
+       * of the image, giving the impression of a glass surface.
+       * Additive blending keeps it from darkening the image underneath.
+       */}
       <mesh position={[0, 0, 0.002]}>
         <planeGeometry args={[PANEL_W, PANEL_H]} />
         <meshStandardMaterial
-          color="#aaccff"
+          color="#ddeeff"
           transparent
-          opacity={0.04}
+          opacity={0.10}
           roughness={0}
           metalness={0}
+          blending={THREE.AdditiveBlending}
           depthWrite={false}
         />
       </mesh>
 
-      {/* Edge frame */}
+      {/* Edge frame — sky blue default, white on hover */}
       <lineSegments ref={borderRef} geometry={borderGeom}>
-        <lineBasicMaterial color="#222222" />
+        <lineBasicMaterial color="#b0c8e8" />
       </lineSegments>
 
-      {/* Project title */}
+      {/* Title — dark navy for readability against the light sky */}
       <Text
-        position={[0, -(PANEL_H / 2 + 0.24), 0]}
+        position={[0, -(PANEL_H / 2 + 0.26), 0]}
         fontSize={0.16}
-        color="#e0e0e0"
+        color="#1e3060"
         anchorX="center"
         anchorY="top"
         maxWidth={PANEL_W}
-        letterSpacing={0.02}
+        letterSpacing={0.025}
       >
         {project.title}
       </Text>
