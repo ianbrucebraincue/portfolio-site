@@ -98,6 +98,7 @@
   overflow: hidden;
   aspect-ratio: 4 / 3;
   background: var(--color-surface);
+  position: relative;
 }
 
 .img {

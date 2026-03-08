@@ -14,19 +14,19 @@ export const projects: Project[] = [
     featured: true,
     images: [
       {
-        src: "/.netlify/images?url=/images/ready2stack/ready-2stack-home.png&w=800&q=75",
+        src: "/images/ready2stack/ready-2stack-home.png",
         alt: "Ready2Stack — home page showing product overview",
         width: 1200,
         height: 800,
       },
       {
-        src: "/.netlify/images?url=/images/ready2stack/ready-2-stack-mobile.jpg&w=800&q=75",
+        src: "/images/ready2stack/ready-2-stack-mobile.jpg",
         alt: "Ready2Stack — mobile view showing product overview",
         width: 1200,
         height: 800,
       },
       {
-        src: "/.netlify/images?url=/images/ready2stack/ready-2-stack-mobile2.jpg&w=800&q=75",
+        src: "/images/ready2stack/ready-2-stack-mobile2.jpg",
         alt: "Ready2Stack — mobile view showing product overview 2",
         width: 1200,
         height: 800,
@@ -35,7 +35,7 @@ export const projects: Project[] = [
     videos: [
       {
         src: "/videos/ready-2-stack-animation-stack.mp4",
-        poster: "/.netlify/images?url=/images/ready2stack/ready-2-stack-animation-stack-poster.png",
+        poster: "/images/ready2stack/ready-2-stack-animation-stack-poster.png",
         caption: "Ready2Stack — animation showing stack assembly",
       },
     ],
@@ -46,26 +46,26 @@ export const projects: Project[] = [
     description:
       "Outward VC is an early-stage venture capital firm that supports businesses at a critical and often challenging point in their growth.",
     longDescription:
-      "Outward VC is an early-stage venture capital firm that supports businesses at a critical and often challenging point in their growth. Following a recent rebrand, they needed help bringing their new identity to life on their website. We worked with Outward to apply their bold new colour palette and typographic style, while also enhancing the site’s structure to create clearer, more distinct user journeys.",
+      "Outward VC is an early-stage venture capital firm that supports businesses at a critical and often challenging point in their growth. Following a recent rebrand, they needed help bringing their new identity to life on their website. We worked with Outward to apply their bold new colour palette and typographic style, while also enhancing the site's structure to create clearer, more distinct user journeys.",
     link: "https://outwardvc.com/",
     tags: ["JavaScript", "GSAP", "Owl Carousel", "Zapier", "Accessibility (WCAG / ARIA)"],
     year: 2025,
     featured: true,
     images: [
       {
-        src: "/.netlify/images?url=/images/outwardvc/outward-home.jpg&w=800&q=75",
+        src: "/images/outwardvc/outward-home.jpg",
         alt: "Outward VC — home page showing company overview",
         width: 1200,
         height: 800,
       },
       {
-        src: "/.netlify/images?url=/images/outwardvc/outward-invest.jpg",
+        src: "/images/outwardvc/outward-invest.jpg",
         alt: "Outward VC — mobile view showing company overview",
         width: 1200,
         height: 800,
       },
       {
-        src: "/.netlify/images?url=/images/outwardvc/outward-talent.jpg&w=800&q=75",
+        src: "/images/outwardvc/outward-talent.jpg",
         alt: "Outward VC — mobile view showing company overview",
         width: 1200,
         height: 800,
@@ -84,19 +84,19 @@ export const projects: Project[] = [
     year: 2025,
     images: [
       {
-        src: "/.netlify/images?url=/images/disauthority/disauthority-awards-section.jpg&w=800&q=75",
+        src: "/images/disauthority/disauthority-awards-section.jpg",
         alt: "DISAUTHORITY — variable font specimen interface",
         width: 1200,
         height: 800,
       },
       {
-        src: "/.netlify/images?url=/images/disauthority/disauthority-mobile-1.jpg&w=800&q=75",
+        src: "/images/disauthority/disauthority-mobile-1.jpg",
         alt: "DISAUTHORITY showing weight axis range",
         width: 1200,
         height: 800,
       },
       {
-        src: "/.netlify/images?url=/images/disauthority/disauthority-mobile-2.jpg&w=800&q=75",
+        src: "/images/disauthority/disauthority-mobile-2.jpg",
         alt: "DISAUTHORITY showing weight axis range",
         width: 1200,
         height: 800,
@@ -105,7 +105,7 @@ export const projects: Project[] = [
     videos: [
       {
         src: "/videos/disauthority-css-theme-trimmed.mp4",
-        poster: "/.netlify/images?url=/images/disauthority/disauthority-poster.png",
+        poster: "/images/disauthority/disauthority-poster.png",
         caption: "DISAUTHORITY — animation showing CSS theme transitions",
       },
     ],
@@ -122,19 +122,19 @@ export const projects: Project[] = [
     year: 2024,
     images: [
       {
-        src: "/.netlify/images?url=/images/hive/hive-desktop-menu.jpg&w=800&q=75",
+        src: "/images/hive/hive-desktop-menu.jpg",
         alt: "Hive — desktop menu view",
         width: 1200,
         height: 800,
       },
       {
-        src: "/.netlify/images?url=/images/hive/hive-mobile-1.jpg&w=800&q=75",
+        src: "/images/hive/hive-mobile-1.jpg",
         alt: "Hive — mobile view showing facilities",
         width: 1200,
         height: 800,
       },
       {
-        src: "/.netlify/images?url=/images/hive/hive-mobile-2.jpg&w=800&q=75",
+        src: "/images/hive/hive-mobile-2.jpg",
         alt: "Hive — mobile view showing facilities",
         width: 1200,
         height: 800,
@@ -143,7 +143,7 @@ export const projects: Project[] = [
     videos: [
       {
         src: "/videos/hive-video.mp4",
-        poster: "/.netlify/images?url=/images/hive/hive-poster.png",
+        poster: "/images/hive/hive-poster.png",
         caption: "Hive — video showcasing the studio spaces",
       },
     ],
@@ -160,28 +160,28 @@ export const projects: Project[] = [
     year: 2024,
     images: [
       {
-        src: "/.netlify/images?url=/images/string-systems/string-systems-pageheader.jpeg&w=800&q=75",
+        src: "/images/string-systems/string-systems-pageheader.jpeg",
         alt: "String Systems — desktop view showing page header.",
         width: 1200,
         height: 800,
       },
       {
-        src: "/.netlify/images?url=/images/string-systems/string-systems-mobile-1.png&w=800&q=75",
+        src: "/images/string-systems/string-systems-mobile-1.png",
         alt: "String Systems — mobile view showing page header.",
         width: 1200,
         height: 800,
       },
       {
-        src: "/.netlify/images?url=/images/string-systems/string-systems-mobile-2.png&w=800&q=75",
+        src: "/images/string-systems/string-systems-mobile-2.png",
         alt: "String Systems — mobile view showing page header.",
         width: 1200,
         height: 800,
       },
     ],
-     videos: [
+    videos: [
       {
         src: "/videos/string-systems-video.mp4",
-        poster: "/.netlify/images?url=/images/string-systems/string-systems-poster.png",
+        poster: "/images/string-systems/string-systems-poster.png",
         caption: "String Systems — video showcasing animation in pageheader",
       },
     ],
@@ -198,19 +198,19 @@ export const projects: Project[] = [
     year: 2022,
     images: [
       {
-        src: "/.netlify/images?url=/images/national-sparks/national-sparks-home-2.png&w=800&q=75",
+        src: "/images/national-sparks/national-sparks-home-2.png",
         alt: "National Sparks — home view on desktop.",
         width: 1200,
         height: 800,
       },
       {
-        src: "/.netlify/images?url=/images/national-sparks/national-sparks-find-an-activity.png&w=800&q=75",
+        src: "/images/national-sparks/national-sparks-find-an-activity.png",
         alt: "National Sparks — find an activity view on desktop.",
         width: 1200,
         height: 800,
       },
       {
-        src: "/.netlify/images?url=/images/national-sparks/national-sparks-excuse-generator.png&w=800&q=75",
+        src: "/images/national-sparks/national-sparks-excuse-generator.png",
         alt: "National Sparks — excuse generator view on desktop.",
         width: 1200,
         height: 800,

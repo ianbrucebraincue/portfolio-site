@@ -7,7 +7,7 @@ import styles from "@/app/3d/page.module.css";
 const WorldScene = dynamic(() => import("./WorldScene"), {
   ssr: false,
   loading: () => (
-    <div className={styles.loader} role="status" aria-live="polow-carbon">
+    <div className={styles.loader} role="status" aria-live="polite">
       <span className={styles.loaderDot} />
       <span className={styles.loaderDot} />
       <span className={styles.loaderDot} />

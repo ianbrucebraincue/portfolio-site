@@ -13,8 +13,7 @@ const nextConfig: NextConfig = {
     ],
     localPatterns: [
       {
-        pathname: '/.netlify/images',
-        search: '',
+        pathname: '/images/**',
       },
     ],
   },

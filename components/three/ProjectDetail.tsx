@@ -43,10 +43,9 @@ export default function ProjectDetail({ project, onClose }: ProjectDetailProps) 
                   <Image
                     src={img.src}
                     alt={img.alt}
-                    width={img.width}
-                    height={img.height}
+                    fill
                     className={styles.img}
-                    sizes="380px"
+                    sizes="190px"
                   />
                 </div>
               ))}
