@@ -56,7 +56,7 @@ export default function WebOutro() {
             Explore in 3D →
           </a>
           <a href="/low-carbon" className={styles.altLink}>
-            Lite version →
+            Low Carbon version →
           </a>
         </nav>
       </div>
