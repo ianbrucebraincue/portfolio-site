@@ -41,6 +41,12 @@
   gap: var(--space-md);
 }
 
+@media (max-width: 640px) {
+  .links {
+    gap: calc(var(--space-md) / 2);
+  }
+}
+
 .link {
   font-size: 0.85rem;
   font-weight: 500;

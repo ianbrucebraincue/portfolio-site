@@ -31,7 +31,7 @@
 
 .low-carbon-header { border-bottom: 1px solid #ddd; padding-bottom: 1rem; margin-bottom: 2rem; }
 .low-carbon-header p { color: #555; font-size: 0.9rem; margin-bottom: 0; }
-.low-carbon-nav { display: flex; gap: 1rem; margin-top: 0.5rem; font-size: 0.85rem; }
+.low-carbon-nav { display: flex; gap: 1rem; margin-top: 0.5rem; font-size: 0.85rem; flex-wrap: wrap;}
 
 .low-carbon-intro { margin-bottom: 3rem; }
 

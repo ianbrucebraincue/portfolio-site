@@ -56,6 +56,12 @@
   text-align: left;
 }
 
+@media (max-width: 640px) {
+  .navLink {
+    padding: var(--space-md) calc(var(--space-lg) / 2);
+  }
+}
+
 .navLink:hover {
   border-color: var(--color-accent);
   background-color: var(--color-accent-dim);
@@ -70,11 +76,13 @@
   font-size: 1rem;
   font-weight: 600;
   letter-spacing: -0.01em;
+  min-width: 50%;
 }
 
 .navDesc {
   font-size: 0.8rem;
   color: var(--color-text-muted);
+  text-align: right;
 }
 
 .footer {
