@@ -182,13 +182,14 @@ export default function GalleryPanel({
 
       {/* Title — dark navy for readability against the light sky */}
       <Text
-        position={[0, -(PANEL_H / 2 + 0.26), 0]}
+        position={[0, -(PANEL_H / 2) - 0.1, 0.01]}
         fontSize={0.16}
         color="#1e3060"
         anchorX="center"
         anchorY="top"
         maxWidth={PANEL_W}
         letterSpacing={0.025}
+        
       >
         {project.title}
       </Text>

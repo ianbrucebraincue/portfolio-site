@@ -39,6 +39,7 @@ export const projects: Project[] = [
         caption: "Ready2Stack — animation showing stack assembly",
       },
     ],
+    color: "#4F46E5",
   },
   {
     id: "outwardvc",
@@ -71,6 +72,7 @@ export const projects: Project[] = [
         height: 800,
       },
     ],
+    color: "#FFFFFF",
   },
   {
     id: "disauthority",
@@ -109,6 +111,7 @@ export const projects: Project[] = [
         caption: "DISAUTHORITY — animation showing CSS theme transitions",
       },
     ],
+    color: "#3730A3"
   },
   {
     id: "hive",
@@ -147,6 +150,7 @@ export const projects: Project[] = [
         caption: "Hive — video showcasing the studio spaces",
       },
     ],
+    color: "#3730A3"
   },
   {
     id: "stringsystems",
@@ -185,6 +189,7 @@ export const projects: Project[] = [
         caption: "String Systems — video showcasing animation in pageheader",
       },
     ],
+    color: "#3730A3"
   },
   {
     id: "nationalsparks",
@@ -216,6 +221,7 @@ export const projects: Project[] = [
         height: 800,
       },
     ],
+    color: "#3730A3"
   },
 ];
 

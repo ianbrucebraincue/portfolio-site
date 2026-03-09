@@ -5,6 +5,7 @@ import { Canvas } from "@react-three/fiber";
 import { ScrollControls } from "@react-three/drei";
 import type { Project } from "@/types";
 import GalleryPanel from "./GalleryPanel";
+import DevEmojiField from "./DevEmojiField";
 import { useScrollCamera } from "@/hooks/useScrollCamera";
 import { useInfiniteCorridor } from "@/hooks/useInfiniteCorridor";
 
@@ -76,6 +77,9 @@ const GalleryScene = memo(function GalleryScene({
         <pointLight position={[0, -6, -5]} intensity={0.5} color="#ffeedd" />
 
         <CameraController travel={corridorLength} />
+
+        {/* Background emoji cloud — rendered before panels so it sits behind them */}
+        <DevEmojiField corridorLength={corridorLength} />
 
         {projects.map((project, i) => (
           <Suspense key={project.id} fallback={null}>

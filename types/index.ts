@@ -9,6 +9,7 @@ export interface Project {
   images: ProjectImage[];
   videos?: ProjectVideo[];
   featured?: boolean;
+  color?: string; // Optional color for UI theming  
 }
 
 export interface ProjectImage {
