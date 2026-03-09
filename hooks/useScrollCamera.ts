@@ -1,45 +1,33 @@
-import { useEffect, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
-import { gsap } from "gsap";
-
-const SCROLL_SPEED = 0.04;
+import { useScroll } from "@react-three/drei";
 
 /**
- * Captures wheel events and drives the R3F camera forward along the Z axis.
- * Uses GSAP for smooth easing instead of frame-by-frame lerp.
- * Must be called from a component mounted inside a <Canvas>.
+ * Drives the camera along the -Z axis using scroll progress from Drei's
+ * ScrollControls, replacing the previous wheel-event + GSAP approach.
+ *
+ * Why this works on mobile when the old version didn't:
+ *   ScrollControls creates a native HTML overflow:scroll element overlaid on
+ *   the Canvas. The browser handles wheel, trackpad momentum, and touch scroll
+ *   on that element natively — no JS event listeners required. scroll.offset
+ *   is the normalised [0→1] progress, updated every frame inside useFrame.
+ *
+ * Why pointer events (hover, click) still work:
+ *   The scroll element uses pointer-events:none + touch-action:pan-y so the
+ *   Canvas receives all pointer events normally. Scroll and pointer handling
+ *   are separate browser mechanisms.
+ *
+ * @param initialZ  World Z where the camera starts (e.g. 2)
+ * @param travel    Total Z units to traverse from offset 0 → 1
+ *
+ * Must be called from a component rendered inside <ScrollControls>.
  */
-export function useScrollCamera(initialZ = 0) {
+export function useScrollCamera(initialZ: number, travel: number): void {
   const { camera } = useThree();
-
-  // GSAP tweens this proxy; useFrame copies it to the camera each tick
-  const proxy = useRef({ z: initialZ });
-  const targetZ = useRef(initialZ);
-
-  useEffect(() => {
-    proxy.current.z = camera.position.z;
-    targetZ.current = camera.position.z;
-
-    const handleWheel = (e: WheelEvent) => {
-      e.preventDefault();
-      targetZ.current -= e.deltaY * SCROLL_SPEED;
-
-      gsap.to(proxy.current, {
-        z: targetZ.current,
-        duration: 0.9,
-        ease: "power3.out",
-        overwrite: true,
-      });
-    };
-
-    window.addEventListener("wheel", handleWheel, { passive: false });
-    return () => {
-      window.removeEventListener("wheel", handleWheel);
-      gsap.killTweensOf(proxy.current);
-    };
-  }, [camera]);
+  const scroll = useScroll();
 
   useFrame(() => {
-    camera.position.z = proxy.current.z;
+    // Direct assignment each frame — no GSAP, no proxy.
+    // ScrollControls handles its own damping via the `damping` prop.
+    camera.position.z = initialZ - scroll.offset * travel;
   });
 }

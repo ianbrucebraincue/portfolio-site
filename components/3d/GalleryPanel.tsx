@@ -5,7 +5,6 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { useTexture, Text } from "@react-three/drei";
 import * as THREE from "three";
 import type { Project } from "@/types";
-import { RECYCLE_BUFFER } from "@/hooks/useInfiniteCorridor";
 
 // ─── Panel dimensions ────────────────────────────────────────────────────────
 const PANEL_W = 3.4;
@@ -26,8 +25,6 @@ interface GalleryPanelProps {
   onSelect: (project: Project) => void;
   basePosition: [number, number, number];
   index: number;
-  panelCount: number;
-  spacing: number;
 }
 
 export default function GalleryPanel({
@@ -35,17 +32,14 @@ export default function GalleryPanel({
   onSelect,
   basePosition,
   index,
-  panelCount,
-  spacing,
 }: GalleryPanelProps) {
   const groupRef  = useRef<THREE.Group>(null!);
   const glowRef   = useRef<THREE.Mesh>(null!);
   const borderRef = useRef<THREE.LineSegments>(null!);
 
   const [hovered, setHovered] = useState(false);
-  const { camera, pointer } = useThree();
+  const { pointer } = useThree();
 
-  // Mutable world position — mutated for recycling without triggering re-renders
   const posRef = useRef(new THREE.Vector3(...basePosition));
 
   const texture = useTexture(project.images[0]?.src ?? "", (t) => {
@@ -104,10 +98,6 @@ export default function GalleryPanel({
       mat.color.lerp(hovered ? COLOR_BORDER_HOVER : COLOR_BORDER_DEFAULT, 0.08);
     }
 
-    // ── Infinite recycling ──────────────────────────────────────────────────
-    if (pos.z > camera.position.z + RECYCLE_BUFFER) {
-      pos.z -= panelCount * spacing;
-    }
   });
 
   return (

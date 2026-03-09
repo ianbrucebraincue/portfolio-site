@@ -2,6 +2,7 @@
 
 import { Suspense, memo } from "react";
 import { Canvas } from "@react-three/fiber";
+import { ScrollControls } from "@react-three/drei";
 import type { Project } from "@/types";
 import GalleryPanel from "./GalleryPanel";
 import { useScrollCamera } from "@/hooks/useScrollCamera";
@@ -16,8 +17,8 @@ const FOG_COLOR = "#d4e6ff";
 const FOG_NEAR = 9;
 const FOG_FAR = 40;
 
-function CameraController() {
-  useScrollCamera(CAMERA_Z);
+function CameraController({ travel }: { travel: number }) {
+  useScrollCamera(CAMERA_Z, travel);
   return null;
 }
 
@@ -31,6 +32,8 @@ const GalleryScene = memo(function GalleryScene({
   onSelect,
 }: GallerySceneProps) {
   const positions = useInfiniteCorridor(projects.length, SPACING);
+  // Total Z distance the camera travels: one spacing per panel
+  const corridorLength = projects.length * SPACING;
 
   return (
     <Canvas
@@ -40,45 +43,51 @@ const GalleryScene = memo(function GalleryScene({
       dpr={[1, 1.5]}
       style={{ width: "100%", height: "100%" }}
     >
-      {/* Atmospheric depth — panels fade into the sky gradient behind them */}
-      <fog attach="fog" args={[FOG_COLOR, FOG_NEAR, FOG_FAR]} />
+      {/*
+       * ScrollControls creates a native HTML overflow:scroll element overlaid
+       * on the Canvas. The browser handles wheel, trackpad momentum, and touch
+       * scroll natively — no JS listeners required. pointer-events:none +
+       * touch-action:pan-y keeps Canvas pointer events working normally.
+       */}
+      <ScrollControls pages={projects.length} damping={0.2}>
+        {/* Atmospheric depth — panels fade into the sky gradient behind them */}
+        <fog attach="fog" args={[FOG_COLOR, FOG_NEAR, FOG_FAR]} />
 
-      {/* ── Lighting ── soft, omnidirectional, no harsh shadows ─────────────── */}
+        {/* ── Lighting ── soft, omnidirectional, no harsh shadows ─────────────── */}
 
-      {/* Broad ambient fill — the "sky light" baseline */}
-      <ambientLight intensity={2.2} color="#f8f4ff" />
+        {/* Broad ambient fill — the "sky light" baseline */}
+        <ambientLight intensity={2.2} color="#f8f4ff" />
 
-      {/* Soft overhead directional — gentle top-down illumination */}
-      <directionalLight
-        position={[2, 8, 4]}
-        intensity={1.4}
-        color="#ffffff"
-      />
+        {/* Soft overhead directional — gentle top-down illumination */}
+        <directionalLight
+          position={[2, 8, 4]}
+          intensity={1.4}
+          color="#ffffff"
+        />
 
-      {/* Lavender rim from behind-left — adds glass-edge depth */}
-      <directionalLight
-        position={[-6, 2, -10]}
-        intensity={0.7}
-        color="#c4b8ff"
-      />
+        {/* Lavender rim from behind-left — adds glass-edge depth */}
+        <directionalLight
+          position={[-6, 2, -10]}
+          intensity={0.7}
+          color="#c4b8ff"
+        />
 
-      {/* Warm under-bounce — lifts shadow areas, keeps it airy */}
-      <pointLight position={[0, -6, -5]} intensity={0.5} color="#ffeedd" />
+        {/* Warm under-bounce — lifts shadow areas, keeps it airy */}
+        <pointLight position={[0, -6, -5]} intensity={0.5} color="#ffeedd" />
 
-      <CameraController />
+        <CameraController travel={corridorLength} />
 
-      {projects.map((project, i) => (
-        <Suspense key={project.id} fallback={null}>
-          <GalleryPanel
-            project={project}
-            onSelect={onSelect}
-            basePosition={positions[i]}
-            index={i}
-            panelCount={projects.length}
-            spacing={SPACING}
-          />
-        </Suspense>
-      ))}
+        {projects.map((project, i) => (
+          <Suspense key={project.id} fallback={null}>
+            <GalleryPanel
+              project={project}
+              onSelect={onSelect}
+              basePosition={positions[i]}
+              index={i}
+            />
+          </Suspense>
+        ))}
+      </ScrollControls>
     </Canvas>
   );
 });

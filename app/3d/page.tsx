@@ -30,7 +30,12 @@ export default function ThreeDPage() {
       )}
 
       <div className={styles.hint} aria-hidden>
-        <kbd>Scroll</kbd> to fly · <kbd>Hover</kbd> to inspect · <kbd>Click</kbd> to open
+        <span className={styles.hintDesktop}>
+          <kbd>Scroll</kbd> to fly · <kbd>Hover</kbd> to inspect · <kbd>Click</kbd> to open
+        </span>
+        <span className={styles.hintMobile}>
+          <kbd>Swipe</kbd> to fly · <kbd>Tap</kbd> to open
+        </span>
       </div>
     </div>
   );
