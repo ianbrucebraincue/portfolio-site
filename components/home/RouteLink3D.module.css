@@ -1,0 +1,75 @@
+/* ── 3D card ─────────────────────────────────────────────────────────────────
+   Three visual layers inside the RouteCard shell:
+     0 — .scene    canvas, fills card edge-to-edge
+     1 — .overlay  gradient, fades scene → card bg for text legibility
+     2 — .textZone text, sits at card bottom above the blob
+   ─────────────────────────────────────────────────────────────────────────── */
+
+.card:hover {
+  border-color: var(--gray-300);
+  transform: translateY(-2px);
+}
+
+/* ── Layer 0: canvas ─────────────────────────────────────────────────────── */
+
+.scene {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  /* Radial vignette softens the canvas edge — keeps blob contained */
+  -webkit-mask-image: radial-gradient(ellipse 95% 90% at 50% 45%, black 45%, transparent 100%);
+  mask-image: radial-gradient(ellipse 95% 90% at 50% 45%, black 45%, transparent 100%);
+}
+
+/* ── Layer 1: gradient overlay ───────────────────────────────────────────── */
+/*
+  Fades the Three.js scene into the card surface colour at the bottom
+  so text is always readable regardless of the blob's position.
+  --color-surface adapts: gray-100 on light theme, #1a1a1a on dark theme.
+*/
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to bottom,
+    transparent 30%,
+    var(--color-surface) 86%
+  );
+  pointer-events: none;
+}
+
+/* ── Layer 2: text ───────────────────────────────────────────────────────── */
+
+.textZone {
+  position: relative;
+  z-index: 2;
+  margin-top: auto; /* push to card bottom via flex column on RouteCard */
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.index {
+  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  color: var(--color-text-muted);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+
+.label {
+  font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  color: var(--color-text);
+}
+
+.desc {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+}

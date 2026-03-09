@@ -2,15 +2,45 @@
    CSS Custom Properties
    ========================================= */
 :root {
-  /* Colors */
+  /* ---- Gray Scale ---- */
+  --gray-50:  #F9FAFB;
+  --gray-100: #F3F4F6;
+  --gray-200: #E5E7EB;
+  --gray-300: #D1D5DB;
+  --gray-400: #9CA3AF;
+  --gray-500: #6B7280;
+  --gray-600: #4B5563;
+  --gray-700: #374151;
+  --gray-800: #1F2937;
+  --gray-900: #111827;
+
+  /* ---- Primary Scale — calm slate-indigo ---- */
+  --primary-50:  #EEF2FF;
+  --primary-100: #E0E7FF;
+  --primary-200: #C7D2FE;
+  --primary-300: #A5B4FC;
+  --primary-400: #818CF8;
+  --primary-500: #6366F1;
+  --primary-600: #4F46E5;
+  --primary-700: #4338CA;
+  --primary-800: #3730A3;
+  --primary-900: #312E81;
+
+  /* ---- Semantic Tokens (dark theme defaults) ---- */
   --color-bg: #0a0a0a;
   --color-bg-secondary: #111111;
   --color-surface: #1a1a1a;
   --color-border: #2a2a2a;
   --color-text: #f0f0f0;
+  --color-text-secondary: #b8b8b8;
   --color-text-muted: #888888;
   --color-accent: #e8ff00;
-  --color-accent-dim: rgba(232, 255, 0, 0.15);
+  --color-accent-hover: #c5d600;
+  --color-accent-fg: #0a0a0a;
+  --color-accent-subtle: #1e2200;
+  --hero-glow-a: rgba(232, 255, 0, 0.06);
+  --hero-glow-b: rgba(100, 200, 255, 0.04);
+  --color-nav-bg: rgba(10, 10, 10, 0.8);
 
   /* Typography */
   --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -135,4 +165,41 @@ ol {
 :focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 3px;
+}
+
+/* =========================================
+   Web Route — Light Editorial Theme
+   =========================================
+   Applied via .web-theme wrapper in /web layout.
+   Overrides semantic tokens; raw scale stays in :root.
+   ========================================= */
+.web-theme {
+  /* Surfaces */
+  --color-bg:           var(--gray-50);    /* #F9FAFB — page base     */
+  --color-bg-secondary: var(--gray-100);   /* #F3F4F6 — alt sections  */
+  --color-surface:      var(--gray-100);   /* #F3F4F6 — chips, placeholders */
+  --color-border:       var(--gray-200);   /* #E5E7EB — dividers      */
+
+  /* Text hierarchy */
+  --color-text:           var(--gray-900); /* #111827 — headings      */
+  --color-text-secondary: var(--gray-700); /* #374151 — body text     */
+  --color-text-muted:     var(--gray-500); /* #6B7280 — labels/meta   */
+
+  /* Primary action (calm slate-indigo) */
+  --color-accent:        var(--primary-600); /* #4F46E5 — CTAs, links  */
+  --color-accent-hover:  var(--primary-700); /* #4338CA — hover state  */
+  --color-accent-fg:     var(--gray-50);     /* #F9FAFB — text on accent btn */
+  --color-accent-subtle: var(--primary-50);  /* #EEF2FF — tint backgrounds */
+
+  /* Hero decorative gradients */
+  --hero-glow-a: var(--primary-100); /* #E0E7FF — soft indigo bloom */
+  --hero-glow-b: var(--gray-200);    /* #E5E7EB — neutral shadow    */
+
+  /* Nav frosted glass */
+  --color-nav-bg: rgba(249, 250, 251, 0.88);
+
+  /* Apply base color to wrapper so body dark bg doesn't bleed */
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  min-height: 100dvh;
 }

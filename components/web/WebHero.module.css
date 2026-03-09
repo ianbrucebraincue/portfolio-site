@@ -14,8 +14,8 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 70% 50% at 20% 60%, rgba(232, 255, 0, 0.06) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 40% at 80% 30%, rgba(100, 200, 255, 0.04) 0%, transparent 60%);
+    radial-gradient(ellipse 70% 50% at 20% 60%, var(--hero-glow-a) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 80% 30%, var(--hero-glow-b) 0%, transparent 60%);
   pointer-events: none;
 }
 
@@ -39,8 +39,8 @@
 
 .sub {
   font-size: clamp(1rem, 2.5vw, 1.3rem);
-  color: var(--color-text-muted);
-  line-height: 1.6;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
 }
 
 .scrollHint {

@@ -32,22 +32,27 @@
 
 .sub {
   font-size: 1.1rem;
-  color: var(--color-text-muted);
+  color: var(--color-text-secondary);
   max-width: 40ch;
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
 .cta {
-  font-size: clamp(1.1rem, 3vw, 1.6rem);
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
   font-weight: 600;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
   color: var(--color-accent);
   display: inline-block;
-  transition: letter-spacing var(--duration-base) var(--ease-out);
+  border-bottom: 1.5px solid var(--color-accent);
+  padding-bottom: 2px;
+  transition:
+    color var(--duration-base) var(--ease-out),
+    border-color var(--duration-base) var(--ease-out);
 }
 
 .cta:hover {
-  letter-spacing: 0.02em;
+  color: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
 }
 
 .nav {
@@ -59,9 +64,13 @@
 .altLink {
   font-size: 0.85rem;
   color: var(--color-text-muted);
-  transition: color var(--duration-fast);
+  border-bottom: 1px solid transparent;
+  transition:
+    color var(--duration-fast),
+    border-color var(--duration-fast);
 }
 
 .altLink:hover {
   color: var(--color-text);
+  border-color: var(--color-border);
 }

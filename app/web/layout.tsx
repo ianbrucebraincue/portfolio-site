@@ -8,9 +8,9 @@ export const metadata: Metadata = {
 
 export default function WebLayout({ children }: { children: React.ReactNode }) {
   return (
-    <>
+    <div className="web-theme">
       <Nav active="web" />
       {children}
-    </>
+    </div>
   );
 }

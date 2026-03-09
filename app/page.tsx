@@ -1,36 +1,36 @@
-import Link from "next/link";
+import RouteLinkWeb from "@/components/home/RouteLinkWeb";
+import RouteLink3D from "@/components/home/RouteLink3D";
+import RouteLinkLowCarbon from "@/components/home/RouteLinkLowCarbon";
 import styles from "./page.module.css";
 
 export default function HomePage() {
   return (
-    <main className={styles.main}>
+    <main className={`${styles.main} web-theme`}>
       <div className={styles.content}>
-        <h1 className={styles.name}>Ian Bruce</h1>
-        <p className={styles.tagline}>Frontend engineer &amp; creative technologist</p>
+        <header className={styles.header}>
+          <h1 className={styles.name}>Ian Bruce</h1>
+          <p className={styles.tagline}>Frontend engineer &amp; creative technologist</p>
+        </header>
 
         <nav className={styles.nav} aria-label="Site experiences">
-          <Link href="/web" className={styles.navLink} data-variant="primary">
-            <span className={styles.navLabel}>Modern Web</span>
-            <span className={styles.navDesc}>Classic website experience</span>
-          </Link>
-
-          <Link href="/3d" className={styles.navLink}>
-            <span className={styles.navLabel}>3D World</span>
-            <span className={styles.navDesc}>Explore projects in three dimensions</span>
-          </Link>
-
-          <Link href="/low-carbon" className={styles.navLink}>
-            <span className={styles.navLabel}>Low Carbon</span>
-            <span className={styles.navDesc}>Text-only version</span>
-          </Link>
+          <RouteLinkWeb />
+          <RouteLink3D />
+          <RouteLinkLowCarbon />
         </nav>
       </div>
 
       <footer className={styles.footer}>
-        <a href="https://github.com/ianbrucebraincue" target="_blank" rel="noopener noreferrer">
+        <a
+          href="https://github.com/ianbrucebraincue"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.footerLink}
+        >
           GitHub
         </a>
-        <a href="mailto:brucegordonian@gmail.com">Email</a>
+        <a href="mailto:brucegordonian@gmail.com" className={styles.footerLink}>
+          Email
+        </a>
       </footer>
     </main>
   );

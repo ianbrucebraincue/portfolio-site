@@ -1,0 +1,51 @@
+/*
+  RouteCard — shared card shell
+  ─────────────────────────────
+  Provides: dimensions, border, radius, background, overflow, transitions.
+  Does NOT provide padding — each inner component owns its own spacing so
+  the 3D scene can bleed to the card edge while text stays inset.
+*/
+.card {
+  display: flex;
+  flex-direction: column;
+  min-height: 300px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-surface);
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform var(--duration-base) var(--ease-out),
+    border-color var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out);
+}
+
+/* ---- Card container ---- */
+.card:hover {
+  transform: translateY(-3px);
+  /* Coloured elevation shadow — rgba required for shadow, not a tint substitute */
+  box-shadow: 0 16px 48px rgba(99, 102, 241, 0.1);
+}
+
+/* ---- Full-height inner layout ---- */
+.inner {
+  /* Fill the card height from RouteCard's flex column */
+  flex: 1;
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* ---- Index ---- */
+.index {
+  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  color: var(--color-text-muted);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 1em;
+}
+
