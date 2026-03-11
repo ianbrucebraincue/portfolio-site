@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, Suspense } from "react";
+import { useState, useRef, Suspense, useCallback } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Stars, Environment } from "@react-three/drei";
 import type { Project } from "@/types";
@@ -12,20 +12,25 @@ interface WorldSceneProps {
   projects: Project[];
 }
 
+const CIRCLE_RADIUS = 8;
+const VERTICAL_VARIATION = 1.2;
+
 // Arrange projects in a circular arc in 3D space
 function getProjectPosition(index: number, total: number): [number, number, number] {
-  const radius = 8;
   const angle = (index / total) * Math.PI * 2 - Math.PI / 2;
-  const x = Math.cos(angle) * radius;
-  const z = Math.sin(angle) * radius;
-  // Slight vertical variation for visual interest
-  const y = Math.sin(index * 1.3) * 1.2;
+  const x = Math.cos(angle) * CIRCLE_RADIUS;
+  const z = Math.sin(angle) * CIRCLE_RADIUS;
+  const y = Math.sin(index * 1.3) * VERTICAL_VARIATION;
   return [x, y, z];
 }
 
 export default function WorldScene({ projects }: WorldSceneProps) {
   const [activeProject, setActiveProject] = useState<Project | null>(null);
   const controlsRef = useRef(null);
+
+  const toggleProject = useCallback((project: Project) => {
+    setActiveProject((prev) => (prev?.id === project.id ? null : project));
+  }, []);
 
   return (
     <div className={styles.wrapper}>
@@ -54,9 +59,7 @@ export default function WorldScene({ projects }: WorldSceneProps) {
               project={project}
               position={getProjectPosition(index, projects.length)}
               isActive={activeProject?.id === project.id}
-              onClick={() =>
-                setActiveProject((prev) => (prev?.id === project.id ? null : project))
-              }
+              onClick={() => toggleProject(project)}
             />
           ))}
         </Suspense>
@@ -93,9 +96,7 @@ export default function WorldScene({ projects }: WorldSceneProps) {
           <button
             key={project.id}
             className={`${styles.projectBtn} ${activeProject?.id === project.id ? styles.active : ""}`}
-            onClick={() =>
-              setActiveProject((prev) => (prev?.id === project.id ? null : project))
-            }
+            onClick={() => toggleProject(project)}
             aria-pressed={activeProject?.id === project.id}
           >
             {project.title}

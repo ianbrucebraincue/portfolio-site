@@ -1,11 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap } from "@/lib/gsap";
 import styles from "./WebOutro.module.css";
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function WebOutro() {
   const containerRef = useRef<HTMLElement>(null);

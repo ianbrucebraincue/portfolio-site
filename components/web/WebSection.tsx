@@ -2,13 +2,10 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap } from "@/lib/gsap";
 import type { Project } from "@/types";
 import VideoPlayer from "@/components/ui/VideoPlayer";
 import styles from "./WebSection.module.css";
-
-gsap.registerPlugin(ScrollTrigger);
 
 interface WebSectionProps {
   project: Project;
@@ -66,7 +63,7 @@ export default function WebSection({ project, index }: WebSectionProps) {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, [isEven]);
+  }, []);
 
   const primaryImage = project.images[0];
   const secondaryImages = project.images.slice(1, 3);

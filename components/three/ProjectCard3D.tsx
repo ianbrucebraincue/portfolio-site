@@ -6,6 +6,35 @@ import { Text, RoundedBox } from "@react-three/drei";
 import type { Mesh, Group } from "three";
 import type { Project } from "@/types";
 
+// Card dimensions
+const CARD_W = 2.8;
+const CARD_H = 1.8;
+
+// Animation speeds
+const SCALE_HOVER = 1.08;
+const SCALE_LERP = 5;
+const BILLBOARD_LERP = 2;
+const FLOAT_SPEED = 0.001;
+const FLOAT_AMP = 0.002;
+
+// Glow ring (diagonal of card, offset inward/outward)
+const CARD_DIAGONAL = Math.sqrt(CARD_W * CARD_W + CARD_H * CARD_H);
+const GLOW_RING_INNER = CARD_DIAGONAL / 2 + 0.05;
+const GLOW_RING_OUTER = CARD_DIAGONAL / 2 + 0.12;
+
+const DESC_MAX_LENGTH = 90;
+
+function getAccentColor(isActive: boolean, hovered: boolean): string {
+  if (isActive) return "#e8ff00";
+  if (hovered) return "#ffffff";
+  return "#888888";
+}
+
+function truncateDescription(text: string): string {
+  if (text.length <= DESC_MAX_LENGTH) return text;
+  return text.slice(0, DESC_MAX_LENGTH) + "…";
+}
+
 interface ProjectCard3DProps {
   project: Project;
   position: [number, number, number];
@@ -23,32 +52,27 @@ export default function ProjectCard3D({
   const cardRef = useRef<Mesh>(null);
   const [hovered, setHovered] = useState(false);
 
-  const targetScale = hovered || isActive ? 1.08 : 1;
+  const targetScale = hovered || isActive ? SCALE_HOVER : 1;
 
   useFrame((_, delta) => {
     const group = groupRef.current;
     if (!group) return;
 
     // Float animation
-    group.position.y += Math.sin(Date.now() * 0.001 + position[0]) * 0.002;
+    group.position.y += Math.sin(Date.now() * FLOAT_SPEED + position[0]) * FLOAT_AMP;
 
     // Smooth scale
-    group.scale.x += (targetScale - group.scale.x) * delta * 5;
-    group.scale.y += (targetScale - group.scale.y) * delta * 5;
-    group.scale.z += (targetScale - group.scale.z) * delta * 5;
+    const scaleDelta = delta * SCALE_LERP;
+    group.scale.x += (targetScale - group.scale.x) * scaleDelta;
+    group.scale.y += (targetScale - group.scale.y) * scaleDelta;
+    group.scale.z += (targetScale - group.scale.z) * scaleDelta;
 
     // Face camera softly (billboard on Y axis only)
-    group.rotation.y += (Math.atan2(
-      -group.position.x,
-      -group.position.z
-    ) - group.rotation.y) * delta * 2;
+    const billboardTarget = Math.atan2(-group.position.x, -group.position.z);
+    group.rotation.y += (billboardTarget - group.rotation.y) * delta * BILLBOARD_LERP;
   });
 
-  // Card dimensions
-  const W = 2.8;
-  const H = 1.8;
-
-  const accentColor = isActive ? "#e8ff00" : hovered ? "#ffffff" : "#888888";
+  const accentColor = getAccentColor(isActive, hovered);
   const bgColor = isActive ? "#1a1a10" : "#111111";
 
   return (
@@ -72,7 +96,7 @@ export default function ProjectCard3D({
       {/* Card body */}
       <RoundedBox
         ref={cardRef}
-        args={[W, H, 0.06]}
+        args={[CARD_W, CARD_H, 0.06]}
         radius={0.08}
         smoothness={4}
       >
@@ -86,8 +110,8 @@ export default function ProjectCard3D({
       </RoundedBox>
 
       {/* Accent border top */}
-      <mesh position={[0, H / 2 - 0.02, 0.035]}>
-        <planeGeometry args={[W * 0.85, 0.025]} />
+      <mesh position={[0, CARD_H / 2 - 0.02, 0.035]}>
+        <planeGeometry args={[CARD_W * 0.85, 0.025]} />
         <meshBasicMaterial color={accentColor} />
       </mesh>
 
@@ -98,7 +122,7 @@ export default function ProjectCard3D({
         color={isActive ? "#e8ff00" : "#f0f0f0"}
         anchorX="center"
         anchorY="middle"
-        maxWidth={W - 0.4}
+        maxWidth={CARD_W - 0.4}
         font={undefined}
       >
         {project.title}
@@ -111,16 +135,16 @@ export default function ProjectCard3D({
         color="#888888"
         anchorX="center"
         anchorY="middle"
-        maxWidth={W - 0.5}
+        maxWidth={CARD_W - 0.5}
         lineHeight={1.5}
         font={undefined}
       >
-        {project.description.slice(0, 90) + (project.description.length > 90 ? "…" : "")}
+        {truncateDescription(project.description)}
       </Text>
 
       {/* Year badge */}
       <Text
-        position={[W / 2 - 0.3, -H / 2 + 0.2, 0.04]}
+        position={[CARD_W / 2 - 0.3, -CARD_H / 2 + 0.2, 0.04]}
         fontSize={0.11}
         color="#555555"
         anchorX="right"
@@ -133,7 +157,7 @@ export default function ProjectCard3D({
       {/* Glow ring when active */}
       {isActive && (
         <mesh position={[0, 0, -0.01]}>
-          <ringGeometry args={[Math.sqrt(W * W + H * H) / 2 + 0.05, Math.sqrt(W * W + H * H) / 2 + 0.12, 64]} />
+          <ringGeometry args={[GLOW_RING_INNER, GLOW_RING_OUTER, 64]} />
           <meshBasicMaterial color="#e8ff00" transparent opacity={0.25} />
         </mesh>
       )}
