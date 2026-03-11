@@ -6,7 +6,7 @@
    ─────────────────────────────────────────────────────────────────────────── */
 
 .card:hover {
-  border-color: var(--gray-300);
+  border-color: var(--color-accent);
   transform: translateY(-2px);
 }
 

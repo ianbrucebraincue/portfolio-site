@@ -1,8 +1,8 @@
 .page {
   position: fixed;
   inset: 0;
-  /* Luminous sky gradient — canvas renders transparently over this */
-  background: linear-gradient(170deg, #f0f4ff 0%, #e2ecff 45%, #d4e6ff 100%);
+  /* Dark metallic base — canvas renders transparently over this */
+  background: var(--color-bg);
   overflow: hidden;
 }
 
@@ -13,14 +13,14 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  background: #f0f4ff;
+  background: var(--color-bg);
 }
 
 .loaderDot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #7090c0;
+  background: var(--color-text-muted);
   animation: pulse 1s ease-in-out infinite;
 }
 
@@ -38,7 +38,7 @@
   left: 50%;
   transform: translateX(-50%);
   font-size: 0.75rem;
-  color: rgba(30, 50, 100, 0.45);
+  color: var(--color-text-muted);
   letter-spacing: 0.03em;
   pointer-events: none;
   white-space: nowrap;
@@ -47,11 +47,11 @@
 .hint kbd {
   font-family: var(--font-mono);
   font-size: 0.7rem;
-  color: rgba(30, 50, 100, 0.55);
+  color: var(--color-text-secondary);
   padding: 0.1rem 0.35rem;
-  border: 1px solid rgba(30, 50, 100, 0.18);
+  border: 1px solid var(--color-border);
   border-radius: 3px;
-  background: rgba(255, 255, 255, 0.45);
+  background: var(--color-surface-subtle);
 }
 
 .hintDesktop { display: inline; }

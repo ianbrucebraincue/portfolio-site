@@ -37,8 +37,8 @@
 
 .projectBtn.active {
   color: var(--color-accent);
-  border-color: rgba(232, 255, 0, 0.3);
-  background-color: rgba(232, 255, 0, 0.06);
+  border-color: rgba(217, 217, 221, 0.3);
+  background-color: rgba(217, 217, 221, 0.06);
 }
 
 @media (max-width: 640px) {

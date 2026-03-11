@@ -12,6 +12,7 @@
   border: 1px solid var(--color-border);
   border-radius: 12px;
   background: var(--color-surface);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.04);
   text-decoration: none;
   color: inherit;
   position: relative;
@@ -25,8 +26,8 @@
 /* ---- Card container ---- */
 .card:hover {
   transform: translateY(-3px);
-  /* Coloured elevation shadow — rgba required for shadow, not a tint substitute */
-  box-shadow: 0 16px 48px rgba(99, 102, 241, 0.1);
+  border-color: var(--color-accent);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.04);
 }
 
 /* ---- Full-height inner layout ---- */
