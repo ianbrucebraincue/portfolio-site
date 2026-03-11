@@ -1,5 +1,27 @@
 import type { Metadata } from "next";
+import { Audiowide, Space_Grotesk, IBM_Plex_Sans } from "next/font/google";
 import "@/styles/globals.css";
+
+const hero = Audiowide({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-hero",
+  display: "swap",
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-space-grotesk",
+  display: "swap",
+});
+
+const plex = IBM_Plex_Sans({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
+  variable: "--font-plex",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: {
@@ -26,7 +48,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en-GB">
-      <body>{children}</body>
+      <body className={`${hero.variable} ${spaceGrotesk.variable} ${plex.variable}`}>{children}</body>
     </html>
   );
 }

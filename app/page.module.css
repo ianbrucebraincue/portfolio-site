@@ -31,17 +31,20 @@
 }
 
 .name {
-  font-size: clamp(2rem, 6vw, 4rem);
-  font-weight: 700;
-  letter-spacing: -0.04em;
+  font-family: var(--font-hero), sans-serif;
+  font-size: clamp(1.75rem, 5vw, 3.5rem);
+  font-weight: 400;
+  letter-spacing: 0.08em;
   line-height: 1;
   color: var(--color-text);
 }
 
 .tagline {
+  font-family: var(--font-plex), system-ui, sans-serif;
   font-size: clamp(0.875rem, 1.8vw, 1rem);
+  font-weight: 300;
   color: var(--color-text-muted);
-  letter-spacing: 0.01em;
+  letter-spacing: 0.04em;
   max-width: 40ch;
 }
 
