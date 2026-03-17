@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     default: "Ian Bruce | Portfolio",
     template: "%s | Ian Bruce",
   },
-  description: "Software and creative projects by a developer and creative technologist.",
+  description: "Front-end developer and creative technologist. UI, interaction, and clean implementation.",
   icons: {
     icon: [
       { url: "/icon.svg", type: "image/svg+xml" },
@@ -42,6 +42,15 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_GB",
+    title: "Ian Bruce",
+    description: "Front-end developer and creative technologist. UI, interaction, and clean implementation.",
+    images: [{ url: "/social/og.png", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ian Bruce",
+    description: "Front-end developer and creative technologist. UI, interaction, and clean implementation.",
+    images: ["/social/twitter.png"],
   },
 };
 
