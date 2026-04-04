@@ -61,6 +61,7 @@ export default function GalleryPanel({
 
   // ── Per-frame ─────────────────────────────────────────────────────────────
   useFrame(() => {
+    if (document.hidden) return;
     const group = groupRef.current;
     const pos   = posRef.current;
     if (!group) return;

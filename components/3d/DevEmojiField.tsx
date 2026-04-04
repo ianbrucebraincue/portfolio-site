@@ -62,33 +62,19 @@ interface EmojiDatum {
   opacity: number;     // base transparency
 }
 
-// ─── Single sprite + animation ────────────────────────────────────────────────
+// ─── Single sprite — pure render, no useFrame ─────────────────────────────────
 function EmojiSprite({
   texture,
   datum,
+  spriteRef,
 }: {
   texture: THREE.CanvasTexture;
   datum: EmojiDatum;
+  spriteRef: React.RefCallback<THREE.Sprite>;
 }) {
-  const ref = useRef<THREE.Sprite>(null!);
-  const { position, phase, driftFreq, driftAmp, rotSpeed, size, opacity } = datum;
-
-  useFrame(() => {
-    const sprite = ref.current;
-    if (!sprite) return;
-    const t = performance.now() * 0.001;
-
-    // Vertical sine drift
-    sprite.position.y = position[1] + Math.sin(t * driftFreq + phase) * driftAmp;
-    // Subtle lateral sway at a slightly different frequency so it never loops
-    sprite.position.x = position[0] + Math.sin(t * 0.13 + phase * 1.73) * 0.12;
-
-    // Slow billboard rotation
-    (sprite.material as THREE.SpriteMaterial).rotation += rotSpeed;
-  });
-
+  const { position, size, opacity } = datum;
   return (
-    <sprite ref={ref} position={position} scale={[size, size, 1]}>
+    <sprite ref={spriteRef} position={position} scale={[size, size, 1]}>
       <spriteMaterial
         map={texture}
         transparent
@@ -122,7 +108,7 @@ export default function DevEmojiField({ corridorLength = 50 }: DevEmojiFieldProp
   const data = useMemo<EmojiDatum[]>(() => {
     const rand = makePrng(0xbeef42);
     const X_SPREAD = 24
-    const Y_SPREAD = 11 
+    const Y_SPREAD = 11
     return Array.from({ length: COUNT }, () => {
       const emoji = EMOJIS[Math.floor(rand() * EMOJIS.length)];
       return {
@@ -142,6 +128,24 @@ export default function DevEmojiField({ corridorLength = 50 }: DevEmojiFieldProp
     });
   }, [corridorLength]);
 
+  // Single refs array — one useFrame drives all sprites instead of 35 separate loops
+  const spriteRefs = useRef<Array<THREE.Sprite | null>>([]);
+
+  useFrame(() => {
+    if (document.hidden) return;
+    const t = performance.now() * 0.001;
+    data.forEach((datum, i) => {
+      const sprite = spriteRefs.current[i];
+      if (!sprite) return;
+      // Vertical sine drift
+      sprite.position.y = datum.position[1] + Math.sin(t * datum.driftFreq + datum.phase) * datum.driftAmp;
+      // Subtle lateral sway at a slightly different frequency so it never loops
+      sprite.position.x = datum.position[0] + Math.sin(t * 0.13 + datum.phase * 1.73) * 0.12;
+      // Slow billboard rotation
+      (sprite.material as THREE.SpriteMaterial).rotation += datum.rotSpeed;
+    });
+  });
+
   return (
     <>
       {data.map((datum, i) => (
@@ -149,6 +153,7 @@ export default function DevEmojiField({ corridorLength = 50 }: DevEmojiFieldProp
           key={i}
           texture={textureMap.get(datum.emoji)!}
           datum={datum}
+          spriteRef={(el) => { spriteRefs.current[i] = el; }}
         />
       ))}
     </>

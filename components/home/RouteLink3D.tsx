@@ -1,11 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { Canvas } from "@react-three/fiber";
+import dynamic from "next/dynamic";
 import { Suspense, useRef } from "react";
-import { ThreeBlobScene } from "@/components/ThreeBlob";
 import cardStyles from "./RouteCard.module.css";
 import styles from "./RouteLink3D.module.css";
+
+// Deferred — Three.js bundle does not load until this component mounts in the browser
+const BlobCanvas = dynamic(() => import("@/components/home/BlobCanvas"), {
+  ssr: false,
+  loading: () => null,
+});
 
 export default function RouteLink3D() {
   // Ref-based hover avoids React re-renders inside the RAF loop
@@ -24,16 +29,9 @@ export default function RouteLink3D() {
           alpha: true → transparent canvas background, showing the CSS card
           surface through areas the blob doesn't cover.                    */}
       <div className={styles.scene} aria-hidden>
-        <Canvas
-          camera={{ position: [0, 0, 3.2], fov: 40 }}
-          gl={{ alpha: true, antialias: true }}
-          dpr={[1, 1.5]}
-          style={{ background: "transparent" }}
-        >
-          <Suspense fallback={null}>
-            <ThreeBlobScene hoveredRef={hoveredRef} />
-          </Suspense>
-        </Canvas>
+        <Suspense fallback={null}>
+          <BlobCanvas hoveredRef={hoveredRef} />
+        </Suspense>
       </div>
 
       {/* ── Layer 2: gradient overlay (z-index: 1) ──────────────────────────

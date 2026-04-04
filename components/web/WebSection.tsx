@@ -130,7 +130,6 @@ export default function WebSection({ project, index }: WebSectionProps) {
                 className={styles.img}
                 sizes="(max-width: 768px) 100vw, 55vw"
                 priority={project.featured}
-                unoptimized
               />
             </div>
           )}
@@ -146,7 +145,6 @@ export default function WebSection({ project, index }: WebSectionProps) {
                     height={img.height}
                     className={styles.img}
                     sizes="(max-width: 768px) 100vw, 30vw"
-                    unoptimized
                   />
                 </div>
               ))}

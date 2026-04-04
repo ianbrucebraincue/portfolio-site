@@ -47,6 +47,7 @@ export interface BlobProps {
 function BlobMesh({ hoveredRef }: BlobProps) {
   const meshRef = useRef<THREE.Mesh>(null);
   const origPos = useRef<Float32Array | null>(null);
+  const frameCount = useRef(0);
 
   // Capture original sphere positions once, before any displacement
   useEffect(() => {
@@ -56,6 +57,9 @@ function BlobMesh({ hoveredRef }: BlobProps) {
   }, []);
 
   useFrame((state, delta) => {
+    // Skip entirely when tab is hidden (PageSpeed measurement, background tabs)
+    if (document.hidden) return;
+
     const mesh = meshRef.current;
     const orig = origPos.current;
     if (!mesh || !orig) return;
@@ -80,8 +84,11 @@ function BlobMesh({ hoveredRef }: BlobProps) {
     }
 
     pos.needsUpdate = true;
-    // Recompute normals so glass refraction/Fresnel follows the blob silhouette
-    mesh.geometry.computeVertexNormals();
+    // Recompute normals every 2 frames — halves CPU cost, imperceptible difference
+    frameCount.current++;
+    if (frameCount.current % 2 === 0) {
+      mesh.geometry.computeVertexNormals();
+    }
 
     // ── Slow, calming animation ──
     // Gentle vertical drift

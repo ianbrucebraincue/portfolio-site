@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
+import { gsap } from "@/lib/gsap";
 import styles from "./WebHero.module.css";
 
 export default function WebHero() {
@@ -32,14 +32,20 @@ export default function WebHero() {
           "-=0.2"
         );
 
-      // Floating scroll hint
-      gsap.to(scrollHintRef.current, {
+      // Floating scroll hint — paused when tab is hidden to avoid idle RAF work
+      const floatTween = gsap.to(scrollHintRef.current, {
         y: 8,
         repeat: -1,
         yoyo: true,
         duration: 1.2,
         ease: "sine.inOut",
       });
+
+      const onVisibility = () =>
+        document.hidden ? floatTween.pause() : floatTween.resume();
+
+      document.addEventListener("visibilitychange", onVisibility);
+      return () => document.removeEventListener("visibilitychange", onVisibility);
     }, containerRef);
 
     return () => ctx.revert();

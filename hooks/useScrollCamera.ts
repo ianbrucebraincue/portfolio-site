@@ -26,6 +26,7 @@ export function useScrollCamera(initialZ: number, travel: number): void {
   const scroll = useScroll();
 
   useFrame(() => {
+    if (document.hidden) return;
     // Direct assignment each frame — no GSAP, no proxy.
     // ScrollControls handles its own damping via the `damping` prop.
     camera.position.z = initialZ - scroll.offset * travel;
